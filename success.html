@@ -334,6 +334,15 @@ if (paymentResult) {
         statusIcon.innerHTML =
             "⏳";
 
+        transactionId.innerHTML =
+            paymentResult.transactionId ||
+            "-";
+
+        transactionAmount.innerHTML =
+            paymentResult.amount +
+            " " +
+            paymentResult.currency;
+
         statusIcon.style.background =
             "#ff9800";
 

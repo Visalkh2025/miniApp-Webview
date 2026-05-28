@@ -28,6 +28,9 @@ function payNow() {
             "paymentResult",
             JSON.stringify({
                 status: "pending",
+                transactionId: "TXN999888",
+                amount: 5.50,
+                currency: "USD",
                 message: "Waiting for bank confirmation"
             })
         );
