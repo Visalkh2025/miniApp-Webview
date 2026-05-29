@@ -1,7 +1,5 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -99,11 +97,6 @@ body{
     border-radius:16px;
     font-size:16px;
     font-weight:700;
-    transition:.2s;
-}
-
-.primary-button:hover{
-    opacity:.95;
 }
 
 .secondary-button{
@@ -139,20 +132,14 @@ body{
 /* Loading Overlay */
 
 #loadingOverlay{
-
     position:fixed;
     inset:0;
-
     background:rgba(255,255,255,.97);
-
     backdrop-filter:blur(10px);
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     z-index:9999;
-
     transition:.3s;
 }
 
@@ -163,14 +150,10 @@ body{
 .loader{
     width:60px;
     height:60px;
-
     border-radius:50%;
-
     border:4px solid #E5E7EB;
     border-top:4px solid #1B3351;
-
     animation:spin 1s linear infinite;
-
     margin:auto auto 20px;
 }
 
@@ -233,12 +216,10 @@ body{
         </div>
 
         <div class="description">
-
             Scan this KHQR using ACLEDA,
             ABA, Wing, Prince Bank,
             Sathapana Bank, or any
             KHQR-supported banking application.
-
         </div>
 
         <img
@@ -299,60 +280,36 @@ const ACLEDA_LINK =
 "https://acledabank.com.kh/acleda?id=bill&billId=1095&comcode=KH0144";
 
 /*
- Auto try opening app
-*/
-setTimeout(() => {
+ Auto attempt to open ACLEDA
+ */
+setTimeout(function(){
 
-    window.location.href =
-    ACLEDA_LINK;
+    location.replace(ACLEDA_LINK);
 
-}, 1200);
+}, 800);
 
 /*
- Hide loading after a few seconds
- If app opens, user leaves page.
- If app does not open, user sees KHQR page.
-*/
-setTimeout(() => {
+ If still on page after 3 seconds,
+ hide loading and show KHQR page.
+ */
+setTimeout(function(){
 
     const overlay =
-    document.getElementById(
-        "loadingOverlay"
-    );
+        document.getElementById(
+            "loadingOverlay"
+        );
 
     overlay.style.opacity = "0";
 
-    setTimeout(() => {
+    setTimeout(function(){
 
         overlay.style.display = "none";
 
-    }, 300);
+    },300);
 
-}, 3500);
-
-/*
- If user returns from app,
- remove overlay immediately.
-*/
-document.addEventListener(
-    "visibilitychange",
-    function(){
-
-        if(document.hidden){
-
-            const overlay =
-            document.getElementById(
-                "loadingOverlay"
-            );
-
-            overlay.style.display =
-            "none";
-        }
-    }
-);
+},3000);
 
 </script>
 
 </body>
-
 </html>
