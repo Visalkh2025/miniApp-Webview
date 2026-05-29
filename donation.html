@@ -1,37 +1,14 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
-<title>Continue in ACLEDA Mobile</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-rel="stylesheet">
+<title>Donate via KHQR</title>
 
 <style>
-
-:root{
-
-    --primary:#1B3351;
-    --primaryLight:#27466D;
-
-    --background:#F4F7FB;
-    --card:#FFFFFF;
-
-    --text:#111827;
-    --secondary:#6B7280;
-
-    --border:#E5E7EB;
-}
 
 *{
     margin:0;
@@ -39,159 +16,135 @@ rel="stylesheet">
     box-sizing:border-box;
 }
 
-html{
-    -webkit-text-size-adjust:100%;
-}
-
 body{
-
     min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:24px;
 
-    background:
-        radial-gradient(
-            circle at top,
-            rgba(27,51,81,.08),
-            transparent 40%
-        ),
-        var(--background);
+    background:linear-gradient(
+        180deg,
+        #F5F7FB 0%,
+        #EEF3F9 100%
+    );
 
     font-family:
-        "Inter",
         -apple-system,
         BlinkMacSystemFont,
         "SF Pro Display",
         "Segoe UI",
         sans-serif;
-
-    color:var(--text);
-
-    padding:24px;
-}
-
-.container{
-
-    width:100%;
-    max-width:520px;
-
-    margin:0 auto;
 }
 
 .card{
 
-    background:var(--card);
+    width:100%;
+    max-width:460px;
+
+    background:#FFFFFF;
 
     border-radius:32px;
 
     overflow:hidden;
 
     box-shadow:
-        0 24px 80px rgba(0,0,0,.08);
+        0 24px 80px rgba(0,0,0,.10);
 }
-
-/* HEADER */
 
 .header{
 
     background:linear-gradient(
         180deg,
         #1B3351 0%,
-        #244266 100%
+        #243F63 100%
     );
 
-    padding:42px 24px;
+    padding:52px 24px;
 
-    text-align:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
 .logo{
 
-    width:260px;
-
+    width:280px;
     max-width:100%;
 
+    height:auto;
+
     display:block;
-
-    margin:auto;
 }
-
-/* CONTENT */
 
 .content{
 
-    padding:34px;
-}
+    padding:32px;
 
-.badge{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    padding:8px 14px;
-
-    border-radius:999px;
-
-    background:#EEF2FF;
-
-    color:#1B3351;
-
-    font-size:13px;
-
-    font-weight:700;
+    text-align:center;
 }
 
 .title{
 
-    margin-top:18px;
+    font-size:30px;
 
-    font-size:36px;
+    font-weight:700;
 
-    font-weight:800;
+    color:#111827;
 
-    letter-spacing:-0.03em;
-
-    line-height:1.1;
-
-    color:var(--text);
+    margin-bottom:12px;
 }
 
 .description{
 
-    margin-top:14px;
+    color:#6B7280;
 
-    font-size:16px;
+    font-size:15px;
 
-    font-weight:500;
+    line-height:1.8;
 
-    line-height:1.75;
+    max-width:320px;
 
-    color:var(--secondary);
+    margin:auto;
 }
 
-/* PRIMARY CTA */
-
-.primary-button{
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
+.qr{
 
     width:100%;
 
-    height:64px;
+    max-width:330px;
 
-    margin-top:28px;
+    margin:28px auto;
 
-    border-radius:20px;
+    display:block;
 
-    background:var(--primary);
+    padding:8px;
+
+    background:white;
+
+    border-radius:24px;
+
+    box-shadow:
+        0 16px 40px rgba(0,0,0,.12);
+}
+
+.primary-button{
+
+    display:block;
+
+    width:100%;
+
+    padding:16px;
+
+    border-radius:18px;
+
+    background:#1B3351;
 
     color:white;
 
     text-decoration:none;
 
-    font-size:17px;
+    font-size:16px;
 
     font-weight:700;
 
@@ -200,115 +153,7 @@ body{
 
 .primary-button:hover{
 
-    background:var(--primaryLight);
-}
-
-.primary-button:active{
-
-    transform:scale(.99);
-}
-
-/* QR SECTION */
-
-.qr-section{
-
-    margin-top:32px;
-
-    padding-top:28px;
-
-    border-top:1px solid var(--border);
-}
-
-.qr-title{
-
-    text-align:center;
-
-    font-size:20px;
-
-    font-weight:700;
-
-    margin-bottom:10px;
-}
-
-.qr-subtitle{
-
-    text-align:center;
-
-    color:var(--secondary);
-
-    line-height:1.7;
-
-    font-size:15px;
-
-    margin-bottom:22px;
-}
-
-.qr{
-
-    width:100%;
-
-    max-width:300px;
-
-    display:block;
-
-    margin:auto;
-
-    border-radius:24px;
-
-    box-shadow:
-        0 12px 30px rgba(0,0,0,.10);
-}
-
-/* HELP BOX */
-
-.help{
-
-    margin-top:28px;
-
-    padding:18px;
-
-    border-radius:18px;
-
-    background:#F8FAFC;
-
-    color:var(--secondary);
-
-    font-size:14px;
-
-    line-height:1.8;
-}
-
-.help strong{
-
-    color:var(--text);
-}
-
-/* FOOTER */
-
-.footer{
-
-    margin-top:24px;
-
-    text-align:center;
-
-    color:#9CA3AF;
-
-    font-size:12px;
-}
-
-@media (max-width:480px){
-
-    .content{
-        padding:28px;
-    }
-
-    .title{
-        font-size:32px;
-    }
-
-    .logo{
-        width:220px;
-    }
+    opacity:.95;
 }
 
 </style>
@@ -317,110 +162,44 @@ body{
 
 <body>
 
-<div class="container">
+<div class="card">
 
-    <div class="card">
+    <div class="header">
 
-        <div
-            class="header"
-            onclick="openAcleda()"
-            style="cursor:pointer;">
+        <img
+            class="logo"
+            src="https://www.acledabank.com.kh/kh/assets/layout/logo3.png"
+            alt="ACLEDA Logo">
 
-            <img
-                class="logo"
-                src="https://www.acledabank.com.kh/kh/assets/layout/logo3.png"
-                alt="ACLEDA Logo">
+    </div>
 
+    <div class="content">
+
+        <div class="title">
+            Donate via KHQR
         </div>
 
-        <div class="content">
-
-            <div class="badge">
-                Secure Payment
-            </div>
-
-            <div class="title">
-                Continue in ACLEDA Mobile
-            </div>
-
-            <div class="description">
-
-                Open ACLEDA Mobile to continue your donation.
-                If the application cannot be opened,
-                use the KHQR payment option below.
-
-            </div>
-
-            <a
-                class="primary-button"
-                href="https://acledabank.com.kh/acleda?id=bill&billId=1095&comcode=KH0144">
-
-                Open ACLEDA Mobile
-
-            </a>
-
-            <div class="qr-section">
-
-                <div class="qr-title">
-                    KHQR Alternative Payment
-                </div>
-
-                <div class="qr-subtitle">
-
-                    Scan with ACLEDA, ABA, Wing,
-                    Sathapana, Prince Bank,
-                    or any KHQR-supported application.
-
-                </div>
-
-                <img
-                    class="qr"
-                    src="https://www.acledabank.com.kh/qr/toanchet-manual/FKC-QR-KHR.jpg"
-                    alt="KHQR">
-
-            </div>
-
-            <div class="help">
-
-                <strong>Facebook & Instagram Users</strong>
-
-                <br><br>
-
-                If ACLEDA Mobile does not open:
-
-                <br>
-
-                • Tap the ⋯ menu
-
-                <br>
-
-                • Select "Open in Browser"
-
-                <br>
-
-                • Tap "Open ACLEDA Mobile" again
-
-            </div>
-
-            <div class="footer">
-                Secure KHQR Payment
-            </div>
-
+        <div class="description">
+            Scan the KHQR below using any
+            KHQR-supported banking application.
         </div>
+
+        <img
+            class="qr"
+            src="https://www.acledabank.com.kh/qr/toanchet-manual/FKC-QR-KHR.jpg"
+            alt="KHQR Donation">
+
+        <a
+            class="primary-button"
+            href="https://acledabank.com.kh/acleda?id=bill&billId=1095&comcode=KH0144">
+
+            Start Donation with AC Super App
+
+        </a>
 
     </div>
 
 </div>
-
-<script>
-
-function openAcleda(){
-
-    window.location.href =
-    "https://acledabank.com.kh/acleda?id=bill&billId=1095&comcode=KH0144";
-}
-
-</script>
 
 </body>
 </html>
