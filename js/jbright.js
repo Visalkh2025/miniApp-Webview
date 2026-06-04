@@ -1,110 +1,98 @@
+// ========================================
+// JBRIGHT NATIVE BRIDGE
+// ========================================
+
 window.JBright = {
 
-    call: function(action, data, callback) {
+    callbacks: {},
 
-        console.log("JBright Action:", action);
-        console.log("Payload:", data);
+    call: function (
+        action,
+        data = {},
+        callback = null
+    ) {
 
-        // Store callback for payment response
+        console.log(
+            "[JBright] Action:",
+            action
+        );
+
+        console.log(
+            "[JBright] Payload:",
+            data
+        );
+
         if (callback) {
-            window._jbrightPaymentCallback = callback;
+            this.callbacks[action] = callback;
         }
 
-        // PAYMENT FLOW
-        if (action === "banking.payment.initiate") {
+        const payload = {
+            action,
+            data
+        };
 
-            console.log("Open Native Banking App");
+        // iOS WKWebView
+        if (
+            window.webkit &&
+            window.webkit.messageHandlers &&
+            window.webkit.messageHandlers.jbright
+        ) {
 
-            const payload = {
-                action: action,
-                data: data
-            };
+            window.webkit.messageHandlers.jbright.postMessage(
+                payload
+            );
 
-            // iOS WKWebView
-            if (
-                window.webkit &&
-                window.webkit.messageHandlers &&
-                window.webkit.messageHandlers.jbright
-            ) {
-
-                window.webkit.messageHandlers.jbright.postMessage(payload);
-                return;
-            }
-
-            // Android WebView
-            if (
-                window.AndroidBridge &&
-                typeof window.AndroidBridge.postMessage === "function"
-            ) {
-
-                window.AndroidBridge.postMessage(
-                    JSON.stringify(payload)
-                );
-                return;
-            }
-
-            console.warn("Native bridge not found");
             return;
         }
 
-        // OTHER ACTIONS
-        setTimeout(() => {
+        // Android WebView
+        if (
+            window.AndroidBridge &&
+            typeof window.AndroidBridge.postMessage ===
+                "function"
+        ) {
 
-            const response = {
-                success: true,
-                message: "Success",
-                action: action
-            };
+            window.AndroidBridge.postMessage(
+                JSON.stringify(payload)
+            );
 
-            if (callback) {
-                callback(response);
-            }
+            return;
+        }
 
-        }, 1000);
+        console.warn(
+            "[JBright] Native bridge not found"
+        );
     }
+
 };
 
 
 // ========================================
-// NATIVE -> WEB CALLBACK
+// NATIVE CALLBACK
 // ========================================
 
-window.onPaymentResult = function(result) {
+window.onNativeResult = function (
+    action,
+    result
+) {
 
-    console.log("Payment Result:", result);
+    console.log(
+        "[JBright] Native Result:",
+        action,
+        result
+    );
+
+    const callback =
+        window.JBright.callbacks[action];
 
     if (
-        window._jbrightPaymentCallback &&
-        typeof window._jbrightPaymentCallback === "function"
+        callback &&
+        typeof callback === "function"
     ) {
-        window._jbrightPaymentCallback(result);
+
+        callback(result);
+
+        delete window.JBright.callbacks[action];
     }
+
 };
-
-
-// ========================================
-// TEST FUNCTIONS
-// ========================================
-
-// Payment Success
-function nativePaymentSuccess() {
-
-    window.onPaymentResult({
-        success: true,
-        transactionId: "TXN999888",
-        amount: 5.50,
-        currency: "USD",
-        message: "Payment Successful"
-    });
-
-}
-
-// Payment Failed
-function nativePaymentFailed() {
-
-    window.onPaymentResult({
-        success: false,
-        message: "Insufficient Balance"
-    });
-
-}
