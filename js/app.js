@@ -8,7 +8,8 @@ function payNow() {
         amount: 5.50,
         currency: "USD",
         orderId: "ORDER001",
-        description: "Cafe Payment"
+        description: "Cafe Payment",
+        paymentlink:"https://acledabank.com.kh/acleda?deeplink_menu_id=transfer_to_trading_acs&merchant_id=CSX&payment_data=oNWXAtxk3MgZdS4YDljhri8AhzOdJ48SZBacledabankSecurityTCxRrYd+rBlnnyaVeWfViextlacledabankSecurityTCeSsZ3G+yEJaR6OIipnYU1pmRXGZ1i1H6EfN4KhZVLMWTHZY0YngTereksllw62IugFrp0aWJ7XacledabankSecurityTCJsIacledabankSecurityTCxqDFAbzEbw3BBL1MRHRxwesgxe7Se9aoE8YIB2SJv2tyJWRqvNXKK6qjYxEpqXiZJT20kacledabankSecurityTCJSSf77iWW3dmJCmA2jhvkUag4aY="
     };
 
     console.log("Mini App Start Payment");
