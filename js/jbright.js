@@ -12,33 +12,30 @@ window.JBright = {
             this.callbacks[action] = callback;
         }
         
-        if (action === "banking.payment.initiate") {
-            if (data.paymentlink) {
-                // ✅ Save callback flag ទៅ localStorage មុន redirect
-                localStorage.setItem("pendingPaymentAction", action)
-                window.location.href = data.paymentlink
-                return
-            }
-        }
-        
-        // iOS WKWebView
+        // ✅ iOS WKWebView — Swift handle
         if (window.webkit &&
             window.webkit.messageHandlers &&
             window.webkit.messageHandlers.jbright) {
-            window.webkit.messageHandlers.jbright.postMessage({ action, data })
-            return
+            window.webkit.messageHandlers.jbright.postMessage({ action, data });
+            return; // ← Swift handle ទាំងអស់ — JS មិន timeout
         }
         
-        // Android
+        // ✅ Android
         if (window.AndroidBridge &&
             typeof window.AndroidBridge.postMessage === "function") {
-            window.AndroidBridge.postMessage(JSON.stringify({ action, data }))
-            return
+            window.AndroidBridge.postMessage(JSON.stringify({ action, data }));
+            return;
         }
         
-        console.warn("[JBright] Native bridge not found")
+        // ✅ Browser fallback — redirect paymentlink ផ្ទាល់
+        if (action === "banking.payment.initiate" && data.paymentlink) {
+            window.location.href = data.paymentlink;
+            return; // ← មិន run timeout
+        }
+        
+        console.warn("[JBright] Native bridge not found");
     }
-}
+};
 
 // ========================================
 // NATIVE CALLBACK
