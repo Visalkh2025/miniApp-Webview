@@ -40,36 +40,36 @@ window.JBright = {
 // ========================================
 // NATIVE CALLBACK
 // ========================================
-window.onNativeResult = function(action, result) {
-    console.log("[JBright] Native Result:", action, result)
+// window.onNativeResult = function(action, result) {
+//     console.log("[JBright] Native Result:", action, result)
     
-    const callback = window.JBright.callbacks[action]
-    if (callback && typeof callback === "function") {
-        callback(result)
-        delete window.JBright.callbacks[action]
-        return
-    }
+//     const callback = window.JBright.callbacks[action]
+//     if (callback && typeof callback === "function") {
+//         callback(result)
+//         delete window.JBright.callbacks[action]
+//         return
+//     }
     
-    // ✅ Fallback — បើ callback lost after redirect
-    if (action === "banking.payment.initiate") {
-        if (result.success) {
-            localStorage.setItem("paymentResult", JSON.stringify({
-                status: "success",
-                transactionId: result.transactionId,
-                amount: result.amount,
-                currency: result.currency,
-                message: result.message
-            }))
-        } else {
-            localStorage.setItem("paymentResult", JSON.stringify({
-                status: "failed",
-                message: result.message || "Payment Failed"
-            }))
-        }
-        // ✅ Navigate to success.html
-        window.location.href = "success.html"
-    }
-};
+//     // ✅ Fallback — បើ callback lost after redirect
+//     if (action === "banking.payment.initiate") {
+//         if (result.success) {
+//             localStorage.setItem("paymentResult", JSON.stringify({
+//                 status: "success",
+//                 transactionId: result.transactionId,
+//                 amount: result.amount,
+//                 currency: result.currency,
+//                 message: result.message
+//             }))
+//         } else {
+//             localStorage.setItem("paymentResult", JSON.stringify({
+//                 status: "failed",
+//                 message: result.message || "Payment Failed"
+//             }))
+//         }
+//         // ✅ Navigate to success.html
+//         window.location.href = "success.html"
+//     }
+// };
 
 
 // ========================================
@@ -77,18 +77,7 @@ window.onNativeResult = function(action, result) {
 // ========================================
 
 window.onNativeResult = function(action, result) {
-    console.log("[JBright] Native Result:", action, result);
-    
-    const callback = window.JBright.callbacks[action];
-    if (callback && typeof callback === "function") {
-        callback(result);
-        delete window.JBright.callbacks[action];
-        return;
-    }
-    
-    // ✅ Fallback — callback lost
     if (action === "banking.payment.initiate") {
-        showLoading(false);
         localStorage.setItem("paymentResult", JSON.stringify({
             status: result.success ? "success" : "failed",
             transactionId: result.transactionId || "",
@@ -96,6 +85,8 @@ window.onNativeResult = function(action, result) {
             currency: result.currency || "USD",
             message: result.message || ""
         }));
-        window.location.href = "success.html";
+        
+        // ✅ Full URL
+        window.location.href = "https://seaktechlab.github.io/miniapp-web/success.html";
     }
-};
+}
