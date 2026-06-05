@@ -27,40 +27,23 @@ function payNow() {
         "banking.payment.initiate",
         paymentData,
         function (res) {
-
-            clearTimeout(paymentTimeout);
-
             showLoading(false);
 
             if (res.success) {
-
-                localStorage.setItem(
-                    "paymentResult",
-                    JSON.stringify({
-                        status: "success",
-                        transactionId:
-                            res.transactionId,
-                        amount: res.amount,
-                        currency: res.currency,
-                        message: res.message
-                    })
-                );
-
+                localStorage.setItem("paymentResult", JSON.stringify({
+                    status: "success",
+                    transactionId: res.transactionId,
+                    amount: res.amount,
+                    currency: res.currency,
+                    message: res.message
+                }));
             } else {
-
-                localStorage.setItem(
-                    "paymentResult",
-                    JSON.stringify({
-                        status: "failed",
-                        message:
-                            res.message ||
-                            "Payment Failed"
-                    })
-                );
+                localStorage.setItem("paymentResult", JSON.stringify({
+                    status: "failed",
+                    message: res.message || "Payment Failed"
+                }));
             }
-
-            window.location.href =
-                "success.html";
+            window.location.href = "success.html";
         }
     );
 

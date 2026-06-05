@@ -76,28 +76,26 @@ window.onNativeResult = function(action, result) {
 // NATIVE CALLBACK
 // ========================================
 
-window.onNativeResult = function (
-    action,
-    result
-) {
-
-    console.log(
-        "[JBright] Native Result:",
-        action,
-        result
-    );
-
-    const callback =
-        window.JBright.callbacks[action];
-
-    if (
-        callback &&
-        typeof callback === "function"
-    ) {
-
+window.onNativeResult = function(action, result) {
+    console.log("[JBright] Native Result:", action, result);
+    
+    const callback = window.JBright.callbacks[action];
+    if (callback && typeof callback === "function") {
         callback(result);
-
         delete window.JBright.callbacks[action];
+        return;
     }
-
+    
+    // ✅ Fallback — callback lost
+    if (action === "banking.payment.initiate") {
+        showLoading(false);
+        localStorage.setItem("paymentResult", JSON.stringify({
+            status: result.success ? "success" : "failed",
+            transactionId: result.transactionId || "",
+            amount: result.amount || 0,
+            currency: result.currency || "USD",
+            message: result.message || ""
+        }));
+        window.location.href = "success.html";
+    }
 };
