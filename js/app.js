@@ -23,7 +23,7 @@ function payNow() {
 
     showLoading(true);
 
-    JBright.call(
+     JBright.call(
         "banking.payment.initiate",
         paymentData,
         function (res) {
