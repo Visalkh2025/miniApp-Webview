@@ -3,33 +3,24 @@
 // ========================================
 
 window.JBright = {
-
     callbacks: {},
-
-    call: function (
-        action,
-        data = {},
-        callback = null
-    ) {
-
-        console.log(
-            "[JBright] Action:",
-            action
-        );
-
-        console.log(
-            "[JBright] Payload:",
-            data
-        );
+    call: function (action, data = {}, callback = null) {
+        console.log("[JBright] Action:", action);
+        console.log("[JBright] Payload:", data);
 
         if (callback) {
             this.callbacks[action] = callback;
         }
 
-        const payload = {
-            action,
-            data
-        };
+        const payload = { action, data };
+
+        // ✅ ADD នៅទីនេះ — មុន iOS/Android check
+        if (action === "banking.payment.initiate") {
+            if (data.paymentlink) {
+                window.location.href = data.paymentlink;
+                return;
+            }
+        }
 
         // iOS WKWebView
         if (
@@ -37,33 +28,21 @@ window.JBright = {
             window.webkit.messageHandlers &&
             window.webkit.messageHandlers.jbright
         ) {
-
-            window.webkit.messageHandlers.jbright.postMessage(
-                payload
-            );
-
+            window.webkit.messageHandlers.jbright.postMessage(payload);
             return;
         }
 
         // Android WebView
         if (
             window.AndroidBridge &&
-            typeof window.AndroidBridge.postMessage ===
-                "function"
+            typeof window.AndroidBridge.postMessage === "function"
         ) {
-
-            window.AndroidBridge.postMessage(
-                JSON.stringify(payload)
-            );
-
+            window.AndroidBridge.postMessage(JSON.stringify(payload));
             return;
         }
 
-        console.warn(
-            "[JBright] Native bridge not found"
-        );
+        console.warn("[JBright] Native bridge not found");
     }
-
 };
 
 
